@@ -24,22 +24,43 @@ public class TaskManager {
         epics = new HashMap<>();
     }
 
-
     // Для эпиков
 
-    /** Добавление задачи */
-    public void setEpic(Epic epic){
+    /** Получение списка всех эпиков */
+    public ArrayList<Epic> getListOfAllEpics() {
+        ArrayList<Epic> epicArrayList = new ArrayList<>();
+
+        for(Map.Entry<Integer, Epic> entry : epics.entrySet()) {
+            epicArrayList.add(entry.getValue());
+        }
+
+        return epicArrayList;
+    }
+
+    /** Удаление всех эпиков */
+    public void deleteAllEpics() {
+        epics = new HashMap<>();
+    }
+    /** Получение по идентификатору */
+    public Epic getEpic(int id) {
+        if(epics.containsKey(id))
+            return epics.get(id);
+        return null;
+    }
+
+    /** Создание эпика */
+    public void setEpic(Epic epic) {
         idCounter ++;
 
-        if(epic.getStatus() == null){
+        if(epic.getStatus() == null) {
             if(epic.getSubtasks().isEmpty())
                 epic = new Epic(epic, Status.NEW);
             else{
                 int countOfNewTasks = 0;
                 int countOfDoneTasks = 0;
 
-                for (Subtask subtask : epic.getSubtasks()){
-                    subtasks.put(subtask.getId(), subtask);
+                for (Subtask subtask : epic.getSubtasks()) {
+                    setSubtask(subtask);
 
                     if(subtask.getStatus().equals(Status.NEW))
                         countOfNewTasks ++;
@@ -58,11 +79,6 @@ public class TaskManager {
         epics.put(epic.hashCode(),epic);
     }
 
-    /** Получение списка всех задач */
-    public HashMap<Integer, Epic> getEpics() {
-        return epics;
-    }
-
     //Для тасков
 
     public HashMap<Integer, Task> getTasks() {
@@ -70,7 +86,7 @@ public class TaskManager {
     }
 
     public void setTask(Task task) {
-        if(!tasks.containsKey(task.getId())){
+        if(!tasks.containsKey(task.getId())) {
             tasks.put(task.hashCode(), task);
         }
     }
@@ -102,16 +118,7 @@ public class TaskManager {
 
     /** Добавление подзадачи */
     public void setSubtask(Subtask subtask) {
-        if(!subtasks.containsKey(subtask.getId())) {
-            subtasks.put(subtask.hashCode(), subtask);
-        }
-    }
-
-    /** Обновление подзадачи, если она существует */
-    public void updateSubtask(Subtask subtask) {
-        if(subtasks.containsKey(subtask.getId())) {
-            subtasks.put(subtask.getId(),subtask);
-        }
+        subtasks.put(subtask.hashCode(), subtask);
     }
 
     /** Удаление по идентификатору */
@@ -125,17 +132,7 @@ public class TaskManager {
 
     /** Получение по идентификатору */
 
-    /** Создание. Сам объект должен передаваться в качестве параметра. */
-/*
-    a. Менеджер сам не выбирает статус для задачи. Информация о нём приходит менеджеру вместе с информацией о самой задаче. По этим данным в одних случаях он будет сохранять статус, в других будет рассчитывать.
-    b. Для эпиков:
-    если у эпика нет подзадач или все они имеют статус NEW, то статус должен быть NEW.
-    если все подзадачи имеют статус DONE, то и эпик считается завершённым — со статусом DONE.
-    во всех остальных случаях статус должен быть IN_PROGRESS.
-*/
-
-
-    /** Обновление. Новая версия объекта с верным идентификатором передаётся в виде параметра */
+    /** Создание. + Обновление. Сам объект должен передаваться в качестве параметра. Новая версия объекта с верным идентификатором передаётся в виде параметра */
 
     /** Удаление по идентификатору */
 

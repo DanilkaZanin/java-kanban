@@ -48,16 +48,15 @@ public class Epic extends Task {
         super(epic.getName(), epic.getDescription(), status);
     }
 
-
-    /** Добавление подзадачи в задачу */
+/*    * Добавление подзадачи в задачу
     public void setSubtask(Subtask subtask){
         subtasks.add(subtask);
     }
 
-    /** Добавление одной подзадачи */
+    * Добавление одной подзадачи
     public void setSubtasks(ArrayList<Subtask> subtasks) {
         this.subtasks = subtasks;
-    }
+    }*/
 
     /** Получение списка подзадач */
     public ArrayList<Subtask> getSubtasks() {
