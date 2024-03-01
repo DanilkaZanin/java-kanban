@@ -39,8 +39,19 @@ public class TaskManager {
 
     /** Удаление всех эпиков */
     public void deleteAllEpics() {
+        for(Map.Entry<Integer, Epic> epic : epics.entrySet()){
+            for (Subtask subtask : epic.getValue().getSubtasks()){
+                deleteSubtaskById(subtask.getId());
+            }
+        }
         epics = new HashMap<>();
     }
+
+    /** Получение списка всех подзадач определённого эпика */
+    public ArrayList<Subtask> getAllSubtasksFromEpic(Epic epic){
+        return epic.getSubtasks();
+    }
+
     /** Получение по идентификатору */
     public Epic getEpic(int id) {
         if(epics.containsKey(id))
@@ -55,7 +66,7 @@ public class TaskManager {
         if(epic.getStatus() == null) {
             if(epic.getSubtasks().isEmpty())
                 epic = new Epic(epic, Status.NEW);
-            else{
+            else {
                 int countOfNewTasks = 0;
                 int countOfDoneTasks = 0;
 
@@ -79,7 +90,19 @@ public class TaskManager {
         epics.put(epic.hashCode(),epic);
     }
 
-    //Для тасков
+    //Для задач
+
+    /** Получение списка всех задач*/
+    public ArrayList<Task> deleteAllTasks(){
+        return null;
+    }
+    /** Удаление списка всех задач */
+
+    /** Получение по идентификатору */
+
+    /** Создание. + Обновление. Сам объект должен передаваться в качестве параметра. Новая версия объекта с верным идентификатором передаётся в виде параметра */
+
+    /** Удаление по идентификатору */
 
     public HashMap<Integer, Task> getTasks() {
         return tasks;
@@ -126,15 +149,4 @@ public class TaskManager {
         if(subtasks.containsKey(id))
             subtasks.remove(id);
     }
-
-
-    /** Удаление всех задач */
-
-    /** Получение по идентификатору */
-
-    /** Создание. + Обновление. Сам объект должен передаваться в качестве параметра. Новая версия объекта с верным идентификатором передаётся в виде параметра */
-
-    /** Удаление по идентификатору */
-
-    /** Получение списка всех подзадач определённого эпика */
 }
