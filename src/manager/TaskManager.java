@@ -10,15 +10,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TaskManager {
-    /** Поле для генерации идентификаторов */
-    private int idCounter;
-
-    private HashMap<Integer, Task> tasks;
-    private HashMap<Integer, Subtask> subtasks;
-    private HashMap<Integer, Epic> epics;
+    private final HashMap<Integer, Task> tasks;
+    private final HashMap<Integer, Subtask> subtasks;
+    private final HashMap<Integer, Epic> epics;
 
     public TaskManager() {
-        this.idCounter = 0;
         tasks = new HashMap<>();
         subtasks = new HashMap<>();
         epics = new HashMap<>();
@@ -44,7 +40,7 @@ public class TaskManager {
                 deleteSubtaskById(subtask.getId());
             }
         }
-        epics = new HashMap<>();
+        epics.clear();
     }
 
     /** Получение списка всех подзадач определённого эпика */
@@ -61,8 +57,6 @@ public class TaskManager {
 
     /** Создание эпика */
     public void setEpic(Epic epic) {
-        idCounter ++;
-
         if(epic.getStatus() == null) {
             if(epic.getSubtasks().isEmpty())
                 epic = new Epic(epic, Status.NEW);
@@ -93,25 +87,37 @@ public class TaskManager {
     //Для задач
 
     /** Получение списка всех задач*/
-    public ArrayList<Task> deleteAllTasks(){
-        return null;
+    public ArrayList<Task> getAllTasks() {
+        ArrayList<Task> taskArrayList = new ArrayList<>();
+
+        for(Map.Entry<Integer, Task> task : tasks.entrySet()) {
+            taskArrayList.add(task.getValue());
+        }
+
+        return taskArrayList;
     }
-    /** Удаление списка всех задач */
+
+    /** Удаление всех задач */
+    public void deleteAllTasks() {
+        tasks.clear();
+    }
 
     /** Получение по идентификатору */
-
-    /** Создание. + Обновление. Сам объект должен передаваться в качестве параметра. Новая версия объекта с верным идентификатором передаётся в виде параметра */
-
-    /** Удаление по идентификатору */
-
-    public HashMap<Integer, Task> getTasks() {
-        return tasks;
+    public Task getTaskById(int id) {
+        if(tasks.containsKey(id))
+            return tasks.get(id);
+        return null;
     }
 
+    /** Создание. + Обновление. Сам объект должен передаваться в качестве параметра. Новая версия объекта с верным идентификатором передаётся в виде параметра */
     public void setTask(Task task) {
-        if(!tasks.containsKey(task.getId())) {
-            tasks.put(task.hashCode(), task);
-        }
+        tasks.put(task.getId(), task);
+    }
+
+    /** Удаление по идентификатору */
+    public void deleteTaskById(int id) {
+        if(tasks.containsKey(id))
+            tasks.remove(id);
     }
 
     //Для подзадач
@@ -129,7 +135,7 @@ public class TaskManager {
 
     /** Удаление всех подзадач */
     public void deleteAllSubtasks() {
-        subtasks = new HashMap<>();
+        subtasks.clear();
     }
 
     /** Получение подзадачи по идентификатору*/
