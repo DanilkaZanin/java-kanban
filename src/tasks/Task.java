@@ -7,7 +7,7 @@ import java.util.Objects;
 public class Task {
     private final String name;
     private final String description;
-    private final long id;
+    private final int id;
     private final Status status;
 
     public Task(String name, String description, Status status) {
@@ -25,7 +25,7 @@ public class Task {
         return description;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
@@ -49,6 +49,6 @@ public class Task {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, description, status);
+        return Objects.hash(name, description);
     }
 }
