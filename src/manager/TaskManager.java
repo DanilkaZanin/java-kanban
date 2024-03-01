@@ -5,7 +5,9 @@ import tasks.Task;
 import tasks.Epic;
 import tasks.Subtask;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class TaskManager {
     /** Поле для генерации идентификаторов */
@@ -63,14 +65,56 @@ public class TaskManager {
     }
 
     public void setTask(Task task) {
-        this.tasks.put(task.hashCode(), task);
+        if(!tasks.containsKey(task.getId())){
+            tasks.put(task.hashCode(), task);
+        }
     }
 
     //Для подзадач
 
-    public void setSubtask(Subtask subtask){
-        subtasks.put(subtask.hashCode(), subtask);
+    /** Получение списка всех подзадач */
+    public ArrayList<Subtask> getAllSubtasks(){
+        ArrayList<Subtask> subtaskArrayList = new ArrayList<>();
+
+        for(Map.Entry<Integer,Subtask> entry : subtasks.entrySet()){
+            subtaskArrayList.add(entry.getValue());
+        }
+
+        return subtaskArrayList;
     }
+
+    /** Удаление всех подзадач */
+    public void deleteAllSubtasks(){
+        subtasks = new HashMap<>();
+    }
+
+    /** Получение подзадачи по идентификатору*/
+    public Subtask getSubtaskById(int id){
+        if (subtasks.containsKey(id))
+            return subtasks.get(id);
+        return null;
+    }
+
+    /** Добавление подзадачи */
+    public void setSubtask(Subtask subtask){
+        if(!subtasks.containsKey(subtask.getId())){
+            subtasks.put(subtask.hashCode(), subtask);
+        }
+    }
+
+    /** Обновление подзадачи, если она существует */
+    public void updateSubtask(Subtask subtask){
+        if(subtasks.containsKey(subtask.getId())){
+            subtasks.put(subtask.getId(),subtask);
+        }
+    }
+
+    /** Удаление по идентификатору */
+    public void deleteSubtaskById(int id){
+        if(subtasks.containsKey(id))
+            subtasks.remove(id);
+    }
+
 
     /** Удаление всех задач */
 
