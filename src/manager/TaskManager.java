@@ -24,6 +24,9 @@ public class TaskManager {
         epics = new HashMap<>();
     }
 
+
+    // Для эпиков
+
     /** Добавление задачи */
     public void setEpic(Epic epic){
         idCounter ++;
@@ -36,6 +39,8 @@ public class TaskManager {
                 int countOfDoneTasks = 0;
 
                 for (Subtask subtask : epic.getSubtasks()){
+                    subtasks.put(subtask.getId(), subtask);
+
                     if(subtask.getStatus().equals(Status.NEW))
                         countOfNewTasks ++;
                     else if(subtask.getStatus().equals(Status.DONE))
@@ -73,10 +78,10 @@ public class TaskManager {
     //Для подзадач
 
     /** Получение списка всех подзадач */
-    public ArrayList<Subtask> getAllSubtasks(){
+    public ArrayList<Subtask> getListOfAllSubtasks() {
         ArrayList<Subtask> subtaskArrayList = new ArrayList<>();
 
-        for(Map.Entry<Integer,Subtask> entry : subtasks.entrySet()){
+        for(Map.Entry<Integer,Subtask> entry : subtasks.entrySet()) {
             subtaskArrayList.add(entry.getValue());
         }
 
@@ -84,33 +89,33 @@ public class TaskManager {
     }
 
     /** Удаление всех подзадач */
-    public void deleteAllSubtasks(){
+    public void deleteAllSubtasks() {
         subtasks = new HashMap<>();
     }
 
     /** Получение подзадачи по идентификатору*/
-    public Subtask getSubtaskById(int id){
+    public Subtask getSubtaskById(int id) {
         if (subtasks.containsKey(id))
             return subtasks.get(id);
         return null;
     }
 
     /** Добавление подзадачи */
-    public void setSubtask(Subtask subtask){
-        if(!subtasks.containsKey(subtask.getId())){
+    public void setSubtask(Subtask subtask) {
+        if(!subtasks.containsKey(subtask.getId())) {
             subtasks.put(subtask.hashCode(), subtask);
         }
     }
 
     /** Обновление подзадачи, если она существует */
-    public void updateSubtask(Subtask subtask){
-        if(subtasks.containsKey(subtask.getId())){
+    public void updateSubtask(Subtask subtask) {
+        if(subtasks.containsKey(subtask.getId())) {
             subtasks.put(subtask.getId(),subtask);
         }
     }
 
     /** Удаление по идентификатору */
-    public void deleteSubtaskById(int id){
+    public void deleteSubtaskById(int id) {
         if(subtasks.containsKey(id))
             subtasks.remove(id);
     }
