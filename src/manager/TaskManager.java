@@ -91,7 +91,7 @@ public class TaskManager {
         if(epics.containsKey(id)){
             ArrayList<Subtask> subtaskArrayList = epics.get(id).getSubtasks();
             for(Subtask subtask : subtaskArrayList){
-                deleteSubtask(subtask.getId());
+                subtasks.remove(subtask.getId());
             }
             epics.remove(id);
         }
@@ -159,7 +159,15 @@ public class TaskManager {
 
     /** Удаление всех подзадач */
     public void deleteSubtasks() {
-        subtasks.clear();
+        ArrayList<Integer> keys = new ArrayList<>();
+
+        for (Map.Entry<Integer, Subtask> subtask : subtasks.entrySet()) {
+            keys.add(subtask.getKey());
+        }
+
+        for (int key : keys){
+            deleteSubtask(key);
+        }
     }
 
     /** Получение подзадачи по идентификатору
@@ -180,7 +188,24 @@ public class TaskManager {
      * @param id - идентификатор подзадачи
      * */
     public void deleteSubtask(int id) {
-        if(subtasks.containsKey(id))
-            subtasks.remove(id);
+        if (subtasks.containsKey(id)) {
+            if (subtasks.get(id).getEpic() != null) {
+                Epic epic = subtasks.get(id).getEpic();
+                Epic newEpic = new Epic(epic.getName(), epic.getDescription());
+
+                for (Subtask subtask : epic.getSubtasks())
+                    if (subtask.getId() != id) {
+                        Subtask newSubtask = new Subtask(subtask.getName(), subtask.getDescription(), newEpic);
+                        setSubtask(newSubtask);
+
+                        newEpic.setSubtask(newSubtask);
+                    }
+
+
+                setEpic(newEpic);
+            }
+        }
+
+        subtasks.remove(id);
     }
 }
