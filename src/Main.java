@@ -4,30 +4,49 @@ import tasks.Epic;
 import tasks.Subtask;
 import tasks.Task;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) {
         TaskManager taskManager = new TaskManager();
 
-        Task t1 = new Task("Покушать", "Не перепутать ложку с вилкой", Status.NEW);
-        Subtask subtask = new Subtask("Помыть пол","Шваброй",Status.NEW);
-        Epic epic = new Epic("Дела на сегодня","главное не забыть",Status.NEW);
+        Task t1 = new Task("Задача1", "Описание1", Status.NEW);
+        Task t2 = new Task("Задача2", "Описание2", Status.NEW);
 
-        epic.setSubtask(subtask);
+        Epic epic1 = new Epic("Эпик1","Описание1");
+        Epic epic2 = new Epic("Эпик2","Описание2");
+
+        Subtask subtask1ForEpic1 = new Subtask("Сабтаск1","Описание1", Status.NEW, epic1);
+        Subtask subtask2ForEpic1 = new Subtask("Сабтаск2","Описание2", Status.NEW, epic1);
+
+        Subtask subtask1ForEpic2 = new Subtask("Сабтаск3","Описание3", Status.NEW, epic2);
+
+        epic1.setSubtask(subtask1ForEpic1);
+        epic1.setSubtask(subtask2ForEpic1);
+
+        epic2.setSubtask(subtask1ForEpic2);
 
         taskManager.setTask(t1);
-        taskManager.setTask(epic);
+        taskManager.setTask(t2);
+        taskManager.setEpic(epic1);
+        taskManager.setEpic(epic2);
 
-        HashMap<Integer,Task> map = taskManager.getTasks();
 
-        for(Map.Entry<Integer,Task> entry : map.entrySet()){
-            System.out.println("Ключ: "+ entry.getKey() +
-                    " Имя: "+ entry.getValue().getName() +
-                    " Описание: " +entry.getValue().getDescription() +
-                    " Статус: " + entry.getValue().getStatus());
+
+        List<Task> tasks = taskManager.getAllTasks();
+        List<Epic> epics = taskManager.getListOfAllEpics();
+
+        System.out.println("Задачи");
+        for(Task task : tasks){
+            System.out.println(task);
+        }
+
+        System.out.println("Эпики");
+
+        for(Epic epic : epics){
+            System.out.println(epic);
         }
     }
 }

@@ -57,7 +57,7 @@ public class TaskManager {
 
     /** Создание эпика */
     public void setEpic(Epic epic) {
-        if(epic.getStatus() == null) {
+        if(epic.getStatus() == null) { //Спорная проверка на null, может не нужна
             if(epic.getSubtasks().isEmpty())
                 epic = new Epic(epic, Status.NEW);
             else {
