@@ -55,33 +55,31 @@ public class TaskManager {
         return null;
     }
 
-    /** Создание эпика */
+    /** Создание и обновления эпика */
     public void setEpic(Epic epic) {
-        if(epic.getStatus() == null) { //Спорная проверка на null, может не нужна
-            if(epic.getSubtasks().isEmpty())
-                epic = new Epic(epic, Status.NEW);
-            else {
-                int countOfNewTasks = 0;
-                int countOfDoneTasks = 0;
+        if (epic.getSubtasks().isEmpty())
+            epic = new Epic(epic, Status.NEW);
+        else {
+            int countOfNewTasks = 0;
+            int countOfDoneTasks = 0;
 
-                for (Subtask subtask : epic.getSubtasks()) {
-                    setSubtask(subtask);
+            for (Subtask subtask : epic.getSubtasks()) {
+                setSubtask(subtask);
 
-                    if(subtask.getStatus().equals(Status.NEW))
-                        countOfNewTasks ++;
-                    else if(subtask.getStatus().equals(Status.DONE))
-                        countOfDoneTasks ++;
-                }
-
-                if(countOfNewTasks == epic.getSubtasks().size())
-                    epic = new Epic(epic, Status.NEW);
-                else if(countOfDoneTasks == epic.getSubtasks().size())
-                    epic = new Epic(epic, Status.DONE);
-                else
-                    epic = new Epic(epic, Status.IN_PROGRESS);
+                if (subtask.getStatus().equals(Status.NEW))
+                    countOfNewTasks++;
+                else if (subtask.getStatus().equals(Status.DONE))
+                    countOfDoneTasks++;
             }
+
+            if (countOfNewTasks == epic.getSubtasks().size())
+                epic = new Epic(epic, Status.NEW);
+            else if (countOfDoneTasks == epic.getSubtasks().size())
+                epic = new Epic(epic, Status.DONE);
+            else
+                epic = new Epic(epic, Status.IN_PROGRESS);
         }
-        epics.put(epic.hashCode(),epic);
+        epics.put(epic.hashCode(), epic);
     }
 
     //Для задач
@@ -109,7 +107,8 @@ public class TaskManager {
         return null;
     }
 
-    /** Создание. + Обновление. Сам объект должен передаваться в качестве параметра. Новая версия объекта с верным идентификатором передаётся в виде параметра */
+    /** Создание. + Обновление. Сам объект должен передаваться в качестве параметра.
+     * Новая версия объекта с верным идентификатором передаётся в виде параметра */
     public void setTask(Task task) {
         tasks.put(task.getId(), task);
     }
