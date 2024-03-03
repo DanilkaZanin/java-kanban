@@ -1,6 +1,6 @@
-package tasks;
+package code.tasks;
 
-import status.Status;
+import code.status.Status;
 
 public final class Subtask extends Task {
     /** В тз указано, что каждая подзадача должна знать, в каком эпике она находится */

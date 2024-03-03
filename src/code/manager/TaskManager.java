@@ -1,9 +1,9 @@
-package manager;
+package code.manager;
 
-import status.Status;
-import tasks.Task;
-import tasks.Epic;
-import tasks.Subtask;
+import code.status.Status;
+import code.tasks.Subtask;
+import code.tasks.Task;
+import code.tasks.Epic;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -87,9 +87,10 @@ public class TaskManager {
     }
 
     /** Удаление эпика по id*/
-    public void deleteEpic(int id){
-        if(epics.containsKey(id)){
+    public void deleteEpic(int id) {
+        if(epics.containsKey(id)) {
             ArrayList<Subtask> subtaskArrayList = epics.get(id).getSubtasks();
+
             for(Subtask subtask : subtaskArrayList){
                 subtasks.remove(subtask.getId());
             }
@@ -165,7 +166,7 @@ public class TaskManager {
             keys.add(subtask.getKey());
         }
 
-        for (int key : keys){
+        for (int key : keys) {
             deleteSubtask(key);
         }
     }

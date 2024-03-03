@@ -1,6 +1,7 @@
-package tasks;
+package code.tasks;
 
-import status.Status;
+import code.status.Status;
+
 import java.util.Objects;
 
 public class Task {
