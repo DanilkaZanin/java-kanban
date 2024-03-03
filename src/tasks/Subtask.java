@@ -35,4 +35,14 @@ public final class Subtask extends Task {
         return epic;
     }
 
+    @Override
+    public String toString() {
+        return "Subtask{" +
+                ",name='" + getName() + '\'' +
+                ",description='" + getDescription() + '\'' +
+                ",id='" + getId() + '\'' +
+                ",status='" + getStatus() + '\''+
+                ",epic='" + epic.getName() + '\'' +
+                '}';
+    }
 }
