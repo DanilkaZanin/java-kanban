@@ -15,6 +15,7 @@ public class Epic extends Task {
     /** Конструктор для изменения статуса */
     public Epic(Epic epic, Status status){
         super(epic.getName(), epic.getDescription(), status);
+        subtasks = epic.getSubtasks();
     }
 
     /** Добавление подзадачи в задачу */
@@ -30,5 +31,17 @@ public class Epic extends Task {
     /** Получение списка подзадач */
     public ArrayList<Subtask> getSubtasks() {
         return subtasks;
+    }
+
+    @Override
+    public String toString() {
+        String string = "Epic{" +
+                "name='" + getName() + '\'' +
+                ",description='" + getDescription() + '\'' +
+                ",id='" + getId() + '\'' +
+                ",status='" + getStatus() + '\'' +
+                ",subtasks=" + subtasks +
+                "}";
+        return string;
     }
 }
