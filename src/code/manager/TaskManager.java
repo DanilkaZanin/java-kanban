@@ -19,8 +19,6 @@ public class TaskManager {
         epics = new HashMap<>();
     }
 
-    // Для эпиков
-
     /** Получение списка всех эпиков
      * @return Список всех эпиков
      * */
@@ -98,8 +96,6 @@ public class TaskManager {
         }
     }
 
-    //Для задач
-
     /** Получение списка всех задач
      * @return Список всех задач
      * */
@@ -142,8 +138,6 @@ public class TaskManager {
         if(tasks.containsKey(id))
             tasks.remove(id);
     }
-
-    //Для подзадач
 
     /** Получение списка всех подзадач
      * @return  Список всех подзадач
