@@ -1,7 +1,6 @@
 package tasks;
 
 import status.Status;
-
 import java.util.Objects;
 
 public class Task {
@@ -10,6 +9,7 @@ public class Task {
     private final int id;
     private final Status status;
 
+    /** Конструктор для создания задачи */
     public Task(String name, String description, Status status) {
         this.name = name;
         this.description = description;
@@ -17,18 +17,22 @@ public class Task {
         id = hashCode();
     }
 
+    /** Возвращает имя */
     public String getName() {
         return name;
     }
 
+    /** Возвращает описание */
     public String getDescription() {
         return description;
     }
 
+    /** Возвращает id */
     public int getId() {
         return id;
     }
 
+    /** Возвращает статус задачи */
     public Status getStatus() {
         return status;
     }
@@ -50,5 +54,15 @@ public class Task {
     @Override
     public int hashCode() {
         return Objects.hash(name, description);
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "name='" + name + '\'' +
+                ",description='" + description + '\'' +
+                ",id='" + id + '\'' +
+                ",status='" + status + '\'' +
+                "}";
     }
 }
