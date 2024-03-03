@@ -13,7 +13,6 @@ public class TaskManager {
     private final HashMap<Integer, Task> tasks;
     private final HashMap<Integer, Subtask> subtasks;
     private final HashMap<Integer, Epic> epics;
-
     public TaskManager() {
         tasks = new HashMap<>();
         subtasks = new HashMap<>();
@@ -22,8 +21,10 @@ public class TaskManager {
 
     // Для эпиков
 
-    /** Получение списка всех эпиков */
-    public ArrayList<Epic> getListOfAllEpics() {
+    /** Получение списка всех эпиков
+     * @return Список всех эпиков
+     * */
+    public ArrayList<Epic> getEpics() {
         ArrayList<Epic> epicArrayList = new ArrayList<>();
 
         for(Map.Entry<Integer, Epic> entry : epics.entrySet()) {
@@ -34,17 +35,20 @@ public class TaskManager {
     }
 
     /** Удаление всех эпиков */
-    public void deleteAllEpics() {
+    public void deleteEpics() {
         for(Map.Entry<Integer, Epic> epic : epics.entrySet()){
             for (Subtask subtask : epic.getValue().getSubtasks()){
-                deleteSubtaskById(subtask.getId());
+                deleteSubtask(subtask.getId());
             }
         }
         epics.clear();
     }
 
-    /** Получение списка всех подзадач определённого эпика */
-    public ArrayList<Subtask> getAllSubtasksFromEpic(Epic epic){
+    /** Получение списка всех подзадач определённого эпика
+     * @param epic - Эпик, из которого требуется получить список подзадач
+     * @return Список всех подзадач из эпика
+     * */
+    public ArrayList<Subtask> getSubtasksFromEpic(Epic epic){
         return epic.getSubtasks();
     }
 
@@ -82,10 +86,23 @@ public class TaskManager {
         epics.put(epic.hashCode(), epic);
     }
 
+    /** Удаление эпика по id*/
+    public void deleteEpic(int id){
+        if(epics.containsKey(id)){
+            ArrayList<Subtask> subtaskArrayList = epics.get(id).getSubtasks();
+            for(Subtask subtask : subtaskArrayList){
+                deleteSubtask(subtask.getId());
+            }
+            epics.remove(id);
+        }
+    }
+
     //Для задач
 
-    /** Получение списка всех задач*/
-    public ArrayList<Task> getAllTasks() {
+    /** Получение списка всех задач
+     * @return Список всех задач
+     * */
+    public ArrayList<Task> getTasks() {
         ArrayList<Task> taskArrayList = new ArrayList<>();
 
         for(Map.Entry<Integer, Task> task : tasks.entrySet()) {
@@ -96,33 +113,41 @@ public class TaskManager {
     }
 
     /** Удаление всех задач */
-    public void deleteAllTasks() {
+    public void deleteTasks() {
         tasks.clear();
     }
 
-    /** Получение по идентификатору */
-    public Task getTaskById(int id) {
+    /** Получение по идентификатору
+     * @param id - идентификатор требуемой задачи
+     * @return требуемая задача*/
+    public Task getTask(int id) {
         if(tasks.containsKey(id))
             return tasks.get(id);
         return null;
     }
 
-    /** Создание. + Обновление. Сам объект должен передаваться в качестве параметра.
-     * Новая версия объекта с верным идентификатором передаётся в виде параметра */
+    /** Создание. + Обновление.
+     * Новая версия объекта с верным идентификатором передаётся в виде параметра
+     * @param task - объект, который требуется добавить или обновить
+     * */
     public void setTask(Task task) {
         tasks.put(task.getId(), task);
     }
 
-    /** Удаление по идентификатору */
-    public void deleteTaskById(int id) {
+    /** Удаление по идентификатору
+     * @param id - идентификатор задачи
+     * */
+    public void deleteTask(int id) {
         if(tasks.containsKey(id))
             tasks.remove(id);
     }
 
     //Для подзадач
 
-    /** Получение списка всех подзадач */
-    public ArrayList<Subtask> getListOfAllSubtasks() {
+    /** Получение списка всех подзадач
+     * @return  Список всех подзадач
+     * */
+    public ArrayList<Subtask> getSubtasks() {
         ArrayList<Subtask> subtaskArrayList = new ArrayList<>();
 
         for(Map.Entry<Integer,Subtask> entry : subtasks.entrySet()) {
@@ -133,24 +158,28 @@ public class TaskManager {
     }
 
     /** Удаление всех подзадач */
-    public void deleteAllSubtasks() {
+    public void deleteSubtasks() {
         subtasks.clear();
     }
 
-    /** Получение подзадачи по идентификатору*/
-    public Subtask getSubtaskById(int id) {
+    /** Получение подзадачи по идентификатору
+     * @param id - идентификатор подзадачи
+     * */
+    public Subtask getSubtask(int id) {
         if (subtasks.containsKey(id))
             return subtasks.get(id);
         return null;
     }
 
-    /** Добавление подзадачи */
+    /** Добавление/Обновление подзадачи */
     public void setSubtask(Subtask subtask) {
         subtasks.put(subtask.hashCode(), subtask);
     }
 
-    /** Удаление по идентификатору */
-    public void deleteSubtaskById(int id) {
+    /** Удаление по идентификатору
+     * @param id - идентификатор подзадачи
+     * */
+    public void deleteSubtask(int id) {
         if(subtasks.containsKey(id))
             subtasks.remove(id);
     }
