@@ -18,14 +18,9 @@ public class Epic extends Task {
         subtasks = epic.getSubtasks();
     }
 
-    /** Добавление подзадачи в задачу */
+    /** Добавление подзадачи в эпик */
     public void setSubtask(Subtask subtask){
         subtasks.add(subtask);
-    }
-
-    /** Добавление одной подзадачи */
-    public void setSubtasks(ArrayList<Subtask> subtasks) {
-        this.subtasks = subtasks;
     }
 
     /** Получение списка подзадач */
@@ -35,13 +30,12 @@ public class Epic extends Task {
 
     @Override
     public String toString() {
-        String string = "Epic{" +
+        return "Epic{" +
                 "name='" + getName() + '\'' +
                 ",description='" + getDescription() + '\'' +
                 ",id='" + getId() + '\'' +
                 ",status='" + getStatus() + '\'' +
                 ",subtasks=" + subtasks +
                 "}";
-        return string;
     }
 }
