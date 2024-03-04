@@ -16,20 +16,26 @@ public class Main {
         Epic epic1 = new Epic("Эпик1","Описание1");
         Epic epic2 = new Epic("Эпик2","Описание2");
 
-        Subtask subtask1ForEpic1 = new Subtask("Сабтаск1","Описание1", Status.NEW, epic1);
-        Subtask subtask2ForEpic1 = new Subtask("Сабтаск2","Описание2", Status.NEW, epic1);
+        Subtask subtask1ForEpic1 = new Subtask("Сабтаск1","Описание1", Status.NEW, epic1.hashCode());
+        Subtask subtask2ForEpic1 = new Subtask("Сабтаск2","Описание2", Status.NEW, epic1.hashCode());
 
-        Subtask subtask1ForEpic2 = new Subtask("Сабтаск3","Описание3", Status.NEW, epic2);
+        Subtask subtask1ForEpic2 = new Subtask("Сабтаск3","Описание3", Status.NEW, epic2.hashCode());
 
-        epic1.setSubtask(subtask1ForEpic1);
-        epic1.setSubtask(subtask2ForEpic1);
+        epic1.setSubtaskId(subtask1ForEpic1);
+        epic1.setSubtaskId(subtask2ForEpic1);
 
-        epic2.setSubtask(subtask1ForEpic2);
+        epic2.setSubtaskId(subtask1ForEpic2);
 
         taskManager.setTask(t1);
         taskManager.setTask(t2);
+
+        taskManager.setSubtask(subtask1ForEpic1);
+        taskManager.setSubtask(subtask2ForEpic1);
+        taskManager.setSubtask(subtask1ForEpic2);
+
         taskManager.setEpic(epic1);
         taskManager.setEpic(epic2);
+
 
 
 
@@ -45,15 +51,11 @@ public class Main {
 
         //меняю статус
         Task t3 = new Task("Задача1", "Описание1", Status.IN_PROGRESS);
-
-        Epic epic3 = new Epic("Эпик1","Описание1");
-        Subtask subtask3 = new Subtask("Сабтаск1","Описание1", Status.DONE, epic1);
-        epic3.setSubtask(subtask3);
-        epic3.setSubtask(subtask2ForEpic1);
+        Subtask subtask3 = new Subtask("Сабтаск1","Описание1", Status.DONE, epic1.hashCode());
 
         //обновление задачи
-        taskManager.setTask(t3);
-        taskManager.setEpic(epic3);
+        taskManager.updateTask(t3);
+        taskManager.updateSubtask(subtask3);
 
         tasks = taskManager.getTasks();
         epics = taskManager.getEpics();
