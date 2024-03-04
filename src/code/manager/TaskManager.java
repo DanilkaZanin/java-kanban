@@ -40,7 +40,7 @@ public class TaskManager {
     public ArrayList<Subtask> getSubtasksFromEpic(Epic epic){
         ArrayList<Subtask> subtasksList = new ArrayList<>();
 
-        for (int id : epic.getSubtasksID()){
+        for (int id : epic.getSubtasksId()){
             subtasksList.add(subtasks.get(id));
         }
 
@@ -59,7 +59,7 @@ public class TaskManager {
         int countOfNewTasks = 0;
         boolean isInProgressTask = false;
 
-        for (int id : epic.getSubtasksID()) {
+        for (int id : epic.getSubtasksId()) {
             if(subtasks.get(id).getStatus().equals(Status.IN_PROGRESS)){
                 isInProgressTask = true;
                 break;
@@ -68,7 +68,7 @@ public class TaskManager {
         }
         if(isInProgressTask)
             epic.setStatus(Status.IN_PROGRESS);
-        else if (countOfNewTasks == epic.getSubtasksID().size())
+        else if (countOfNewTasks == epic.getSubtasksId().size())
             epic.setStatus(Status.NEW);
         else
             epic.setStatus(Status.DONE);
@@ -76,7 +76,7 @@ public class TaskManager {
 
     /** Создание эпика */
     public void setEpic(Epic epic) {
-        if (epic.getSubtasksID().isEmpty())
+        if (epic.getSubtasksId().isEmpty())
             epic.setStatus(Status.NEW);
         else {
             epicStatusGenerator(epic);
@@ -86,7 +86,7 @@ public class TaskManager {
 
     /** Метод обновления эпика */
     private void updateEpic(Epic epic){
-        if(!epic.getSubtasksID().isEmpty()){
+        if(!epic.getSubtasksId().isEmpty()){
             epicStatusGenerator(epic);
         } else
             epic.setStatus(Status.NEW);
@@ -97,7 +97,7 @@ public class TaskManager {
     /** Удаление эпика по id*/
     public void deleteEpic(int id) {
         if(epics.containsKey(id)) {
-            ArrayList<Integer> subtaskIDArrayList = epics.get(id).getSubtasksID();
+            ArrayList<Integer> subtaskIDArrayList = epics.get(id).getSubtasksId();
 
             for(int subtaskId : subtaskIDArrayList){
                 subtasks.remove(subtaskId);
@@ -161,7 +161,7 @@ public class TaskManager {
         subtasks.clear();
 
         for(Map.Entry<Integer,Epic> entry : epics.entrySet()){
-            if(entry.getValue().getSubtasksID()!= null){
+            if(entry.getValue().getSubtasksId()!= null){
                 entry.getValue().clearSubtasksId();
             }
         }
@@ -187,7 +187,7 @@ public class TaskManager {
      * */
     public void updateSubtask(Subtask subtask) {
         subtasks.get(subtask.getId()).setStatus(subtask.getStatus());
-        updateEpic(epics.get(subtask.getEpic()));
+        updateEpic(epics.get(subtask.getEpicId()));
     }
 
     /** Удаление по идентификатору
@@ -196,9 +196,9 @@ public class TaskManager {
     public void deleteSubtask(int id) {
         if(subtasks.containsKey(id)){
             Subtask subtask = subtasks.get(id);
-            Epic epic = epics.get(subtask.getEpic());
+            Epic epic = epics.get(subtask.getEpicId());
 
-            epic.getSubtasksID().remove(id);
+            epic.getSubtasksId().remove(id);
             subtasks.remove(id);
         }
     }
