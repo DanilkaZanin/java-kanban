@@ -29,7 +29,7 @@ public class Epic extends Task {
     }
 
     /** Получение списка идентификаторов подзадач */
-    public ArrayList<Integer> getSubtasksID() {
+    public ArrayList<Integer> getSubtasksId() {
         return subtasksId;
     }
 
@@ -40,7 +40,7 @@ public class Epic extends Task {
                 ",description='" + getDescription() + '\'' +
                 ",id='" + getId() + '\'' +
                 ",status='" + getStatus() + '\'' +
-                ",subtasksID=" + subtasksId +
+                ",subtasksId=" + subtasksId +
                 "}";
     }
 }
