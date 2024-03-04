@@ -82,10 +82,10 @@ public class TaskManager {
     /** Удаление эпика по id*/
     public void deleteEpic(int id) {
         if(epics.containsKey(id)) {
-            ArrayList<Subtask> subtaskArrayList = epics.get(id).getSubtasks();
+            ArrayList<Integer> subtaskIDArrayList = epics.get(id).getSubtasksID();
 
-            for(Subtask subtask : subtaskArrayList){
-                subtasks.remove(subtask.getId());
+            for(int subtaskId : subtaskIDArrayList){
+                subtasks.remove(subtaskId);
             }
             epics.remove(id);
         }
