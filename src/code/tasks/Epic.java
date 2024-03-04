@@ -23,6 +23,11 @@ public class Epic extends Task {
         subtasksId.add(id);
     }
 
+    /** Очистка списка идентификаторов подзадач */
+    public void clearSubtasksId(){
+        subtasksId.clear();
+    }
+
     /** Получение списка идентификаторов подзадач */
     public ArrayList<Integer> getSubtasksID() {
         return subtasksId;
