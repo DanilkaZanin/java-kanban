@@ -23,23 +23,13 @@ public class TaskManager {
      * @return Список всех эпиков
      * */
     public ArrayList<Epic> getEpics() {
-        ArrayList<Epic> epicArrayList = new ArrayList<>();
-
-        for(Map.Entry<Integer, Epic> entry : epics.entrySet()) {
-            epicArrayList.add(entry.getValue());
-        }
-
-        return epicArrayList;
+        return new ArrayList<>(epics.values());
     }
 
     /** Удаление всех эпиков */
     public void deleteEpics() {
-        for(Map.Entry<Integer, Epic> epic : epics.entrySet()){
-            for (Subtask subtask : epic.getValue().getSubtasks()){
-                deleteSubtask(subtask.getId());
-            }
-        }
         epics.clear();
+        subtasks.clear();
     }
 
     /** Получение списка всех подзадач определённого эпика
@@ -100,13 +90,7 @@ public class TaskManager {
      * @return Список всех задач
      * */
     public ArrayList<Task> getTasks() {
-        ArrayList<Task> taskArrayList = new ArrayList<>();
-
-        for(Map.Entry<Integer, Task> task : tasks.entrySet()) {
-            taskArrayList.add(task.getValue());
-        }
-
-        return taskArrayList;
+        return new ArrayList<>(tasks.values());
     }
 
     /** Удаление всех задач */
@@ -143,13 +127,7 @@ public class TaskManager {
      * @return  Список всех подзадач
      * */
     public ArrayList<Subtask> getSubtasks() {
-        ArrayList<Subtask> subtaskArrayList = new ArrayList<>();
-
-        for(Map.Entry<Integer,Subtask> entry : subtasks.entrySet()) {
-            subtaskArrayList.add(entry.getValue());
-        }
-
-        return subtaskArrayList;
+        return new ArrayList<>(subtasks.values());
     }
 
     /** Удаление всех подзадач */
