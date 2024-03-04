@@ -56,27 +56,25 @@ public class TaskManager {
 
     /** Создание и обновления эпика */
     public void setEpic(Epic epic) {
-        if (epic.getSubtasks().isEmpty())
-            epic = new Epic(epic, Status.NEW);
+        if (epic.getSubtasksID().isEmpty())
+            epic.setStatus(Status.NEW);
         else {
             int countOfNewTasks = 0;
-            int countOfDoneTasks = 0;
+            boolean isInProgressTask = false;
 
-            for (Subtask subtask : epic.getSubtasks()) {
-                setSubtask(subtask);
-
-                if (subtask.getStatus().equals(Status.NEW))
+            for (int id : epic.getSubtasksID()) {
+                if(subtasks.get(id).getStatus().equals(Status.IN_PROGRESS)){
+                    isInProgressTask = true;
+                    break;
+                } else if (subtasks.get(id).getStatus().equals(Status.NEW))
                     countOfNewTasks++;
-                else if (subtask.getStatus().equals(Status.DONE))
-                    countOfDoneTasks++;
             }
-
-            if (countOfNewTasks == epic.getSubtasks().size())
-                epic = new Epic(epic, Status.NEW);
-            else if (countOfDoneTasks == epic.getSubtasks().size())
-                epic = new Epic(epic, Status.DONE);
+            if(isInProgressTask)
+                epic.setStatus(Status.IN_PROGRESS);
+            else if (countOfNewTasks == epic.getSubtasksID().size())
+                epic.setStatus(Status.NEW);
             else
-                epic = new Epic(epic, Status.IN_PROGRESS);
+                epic.setStatus(Status.NEW);
         }
         epics.put(epic.hashCode(), epic);
     }
