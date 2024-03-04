@@ -137,14 +137,12 @@ public class TaskManager {
 
     /** Удаление всех подзадач */
     public void deleteSubtasks() {
-        ArrayList<Integer> keys = new ArrayList<>();
+        subtasks.clear();
 
-        for (Map.Entry<Integer, Subtask> subtask : subtasks.entrySet()) {
-            keys.add(subtask.getKey());
-        }
-
-        for (int key : keys) {
-            deleteSubtask(key);
+        for(Map.Entry<Integer,Epic> entry : epics.entrySet()){
+            if(entry.getValue().getSubtasksID()!= null){
+                entry.getValue().clearSubtasksId();
+            }
         }
     }
 
