@@ -8,7 +8,7 @@ public class Task {
     private final String name;
     private final String description;
     private final int id;
-    private final Status status;
+    private Status status;
 
     /** Конструктор для создания задачи */
     public Task(String name, String description, Status status) {
@@ -36,6 +36,11 @@ public class Task {
     /** Возвращает статус задачи */
     public Status getStatus() {
         return status;
+    }
+
+    /** Добавление статуса */
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     @Override
