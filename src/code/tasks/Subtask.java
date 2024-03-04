@@ -3,24 +3,24 @@ package code.tasks;
 import code.status.Status;
 
 public final class Subtask extends Task {
-    /** В тз указано, что каждая подзадача должна знать, в каком эпике она находится */
-    private final int epic;
+    /** Идентификатор эпика, внутри которого находится подзадача */
+    private final int epicId;
 
     /** Для создания подзадачи в эпике */
-    public Subtask(String name, String description, int epic){
+    public Subtask(String name, String description, int epicId){
         super(name, description, Status.NEW);
-        this.epic = 0;
+        this.epicId = epicId;
     }
 
     /** Для создания подзадачи в эпике */
-    public Subtask(String name, String description, Status status, int epic) {
+    public Subtask(String name, String description, Status status, int epicId) {
         super(name, description, status);
-        this.epic = epic;
+        this.epicId = epicId;
     }
 
-    /** Возвращает эпик, внутри которого находится */
-    public int getEpic(){
-        return epic;
+    /** Возвращает идентификатор эпика, внутри которого находится */
+    public int getEpicId(){
+        return epicId;
     }
 
     @Override
@@ -30,7 +30,7 @@ public final class Subtask extends Task {
                 ",description='" + getDescription() + '\'' +
                 ",id='" + getId() + '\'' +
                 ",status='" + getStatus() + '\''+
-                ",epicID='" + epic + '\'' +
+                ",epicId='" + epicId + '\'' +
                 '}';
     }
 }
