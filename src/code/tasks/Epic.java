@@ -1,32 +1,31 @@
 package code.tasks;
 
-import code.status.Status;
-
 import java.util.ArrayList;
 
 public class Epic extends Task {
-    ArrayList<Subtask> subtasks;
+    ArrayList<Integer> subtasksId;
 
     /** Для создания пустого эпика */
     public Epic(String name, String description) {
         super(name, description, null);
-        subtasks = new ArrayList<>();
+        subtasksId = new ArrayList<>();
     }
 
-    /** Конструктор для изменения статуса */
-    public Epic(Epic epic, Status status){
-        super(epic.getName(), epic.getDescription(), status);
-        subtasks = epic.getSubtasks();
+    /** Добавление подзадачи в эпик
+     * @param subtask - сущность подзадачи
+     * */
+    public void setSubtaskId(Subtask subtask){
+        subtasksId.add(subtask.hashCode());
+    }
+    /** Добавление подзадачи в эпик
+     * @param id - идентификатор подзадачи */
+    public void setSubtaskId(int id){
+        subtasksId.add(id);
     }
 
-    /** Добавление подзадачи в эпик */
-    public void setSubtask(Subtask subtask){
-        subtasks.add(subtask);
-    }
-
-    /** Получение списка подзадач */
-    public ArrayList<Subtask> getSubtasks() {
-        return subtasks;
+    /** Получение списка идентификаторов подзадач */
+    public ArrayList<Integer> getSubtasksID() {
+        return subtasksId;
     }
 
     @Override
@@ -36,7 +35,7 @@ public class Epic extends Task {
                 ",description='" + getDescription() + '\'' +
                 ",id='" + getId() + '\'' +
                 ",status='" + getStatus() + '\'' +
-                ",subtasks=" + subtasks +
+                ",subtasksID=" + subtasksId +
                 "}";
     }
 }
