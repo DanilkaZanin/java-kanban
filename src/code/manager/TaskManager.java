@@ -54,29 +54,44 @@ public class TaskManager {
         return null;
     }
 
-    /** Создание и обновления эпика */
+    /** Генератор статуса в эпике  */
+    private void epicStatusGenerator(Epic epic){
+        int countOfNewTasks = 0;
+        boolean isInProgressTask = false;
+
+        for (int id : epic.getSubtasksID()) {
+            if(subtasks.get(id).getStatus().equals(Status.IN_PROGRESS)){
+                isInProgressTask = true;
+                break;
+            } else if (subtasks.get(id).getStatus().equals(Status.NEW))
+                countOfNewTasks++;
+        }
+        if(isInProgressTask)
+            epic.setStatus(Status.IN_PROGRESS);
+        else if (countOfNewTasks == epic.getSubtasksID().size())
+            epic.setStatus(Status.NEW);
+        else
+            epic.setStatus(Status.DONE);
+    }
+
+    /** Создание эпика */
     public void setEpic(Epic epic) {
         if (epic.getSubtasksID().isEmpty())
             epic.setStatus(Status.NEW);
         else {
-            int countOfNewTasks = 0;
-            boolean isInProgressTask = false;
-
-            for (int id : epic.getSubtasksID()) {
-                if(subtasks.get(id).getStatus().equals(Status.IN_PROGRESS)){
-                    isInProgressTask = true;
-                    break;
-                } else if (subtasks.get(id).getStatus().equals(Status.NEW))
-                    countOfNewTasks++;
-            }
-            if(isInProgressTask)
-                epic.setStatus(Status.IN_PROGRESS);
-            else if (countOfNewTasks == epic.getSubtasksID().size())
-                epic.setStatus(Status.NEW);
-            else
-                epic.setStatus(Status.NEW);
+            epicStatusGenerator(epic);
         }
         epics.put(epic.hashCode(), epic);
+    }
+
+    /** Метод обновления эпика */
+    private void updateEpic(Epic epic){
+        if(!epic.getSubtasksID().isEmpty()){
+            epicStatusGenerator(epic);
+        } else
+            epic.setStatus(Status.NEW);
+
+        epics.put(epic.hashCode(),epic);
     }
 
     /** Удаление эпика по id*/
@@ -112,12 +127,18 @@ public class TaskManager {
         return null;
     }
 
-    /** Создание. + Обновление.
+    /** Создание
      * Новая версия объекта с верным идентификатором передаётся в виде параметра
-     * @param task - объект, который требуется добавить или обновить
+     * @param task - объект, который требуется добавить
      * */
     public void setTask(Task task) {
         tasks.put(task.getId(), task);
+    }
+
+    /** Обновление
+     * @param task - объект, который требуется обновить */
+    public void updateTask(Task task){
+        tasks.get(task.getId()).setStatus(task.getStatus());
     }
 
     /** Удаление по идентификатору
@@ -158,6 +179,15 @@ public class TaskManager {
     /** Добавление/Обновление подзадачи */
     public void setSubtask(Subtask subtask) {
         subtasks.put(subtask.hashCode(), subtask);
+    }
+
+    /** Обновление подзадачи
+     * при обновлении подзадачи так-же обновляется эпик
+     * @param subtask - обновленная версия подзадачи
+     * */
+    public void updateSubtask(Subtask subtask) {
+        subtasks.get(subtask.getId()).setStatus(subtask.getStatus());
+        updateEpic(epics.get(subtask.getEpic()));
     }
 
     /** Удаление по идентификатору
