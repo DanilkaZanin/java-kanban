@@ -4,34 +4,22 @@ import code.status.Status;
 
 public final class Subtask extends Task {
     /** В тз указано, что каждая подзадача должна знать, в каком эпике она находится */
-    private final Epic epic;
+    private final int epic;
 
-    /** Для создания подзадачи без эпика */
-    public Subtask(String name, String description){
+    /** Для создания подзадачи в эпике */
+    public Subtask(String name, String description, int epic){
         super(name, description, Status.NEW);
-        epic = null;
-    }
-
-    /** Для создания подзадачи без эпика */
-    public Subtask(String name, String description, Status status) {
-        super(name, description, status);
-        epic = null;
+        this.epic = 0;
     }
 
     /** Для создания подзадачи в эпике */
-    public Subtask(String name, String description, Epic epic){
-        super(name, description, Status.NEW);
-        this.epic = epic;
-    }
-
-    /** Для создания подзадачи в эпике */
-    public Subtask(String name, String description, Status status, Epic epic) {
+    public Subtask(String name, String description, Status status, int epic) {
         super(name, description, status);
         this.epic = epic;
     }
 
     /** Возвращает эпик, внутри которого находится */
-    public Epic getEpic(){
+    public int getEpic(){
         return epic;
     }
 
@@ -42,7 +30,7 @@ public final class Subtask extends Task {
                 ",description='" + getDescription() + '\'' +
                 ",id='" + getId() + '\'' +
                 ",status='" + getStatus() + '\''+
-                ",epic='" + epic.getName() + '\'' +
+                ",epicID='" + epic + '\'' +
                 '}';
     }
 }
