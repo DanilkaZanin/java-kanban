@@ -13,6 +13,7 @@ public class TaskManager {
     private final HashMap<Integer, Task> tasks;
     private final HashMap<Integer, Subtask> subtasks;
     private final HashMap<Integer, Epic> epics;
+
     public TaskManager() {
         tasks = new HashMap<>();
         subtasks = new HashMap<>();
@@ -37,7 +38,13 @@ public class TaskManager {
      * @return Список всех подзадач из эпика
      * */
     public ArrayList<Subtask> getSubtasksFromEpic(Epic epic){
-        return epic.getSubtasks();
+        ArrayList<Subtask> subtasksList = new ArrayList<>();
+
+        for (int id : epic.getSubtasksID()){
+            subtasksList.add(subtasks.get(id));
+        }
+
+        return subtasksList;
     }
 
     /** Получение по идентификатору */
