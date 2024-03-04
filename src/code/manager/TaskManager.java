@@ -166,24 +166,12 @@ public class TaskManager {
      * @param id - идентификатор подзадачи
      * */
     public void deleteSubtask(int id) {
-        if (subtasks.containsKey(id)) {
-            if (subtasks.get(id).getEpic() != null) {
-                Epic epic = subtasks.get(id).getEpic();
-                Epic newEpic = new Epic(epic.getName(), epic.getDescription());
+        if(subtasks.containsKey(id)){
+            Subtask subtask = subtasks.get(id);
+            Epic epic = epics.get(subtask.getEpic());
 
-                for (Subtask subtask : epic.getSubtasks())
-                    if (subtask.getId() != id) {
-                        Subtask newSubtask = new Subtask(subtask.getName(), subtask.getDescription(), newEpic);
-                        setSubtask(newSubtask);
-
-                        newEpic.setSubtask(newSubtask);
-                    }
-
-
-                setEpic(newEpic);
-            }
+            epic.getSubtasksID().remove(id);
+            subtasks.remove(id);
         }
-
-        subtasks.remove(id);
     }
 }
