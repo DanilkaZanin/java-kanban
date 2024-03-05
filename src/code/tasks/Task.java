@@ -5,17 +5,17 @@ import code.status.Status;
 import java.util.Objects;
 
 public class Task {
-    private final String name;
-    private final String description;
-    private final int id;
-    private Status status;
+    protected final String name;
+    protected final String description;
+    protected int id;
+    protected Status status;
 
     /** Конструктор для создания задачи */
     public Task(String name, String description, Status status) {
         this.name = name;
         this.description = description;
         this.status = status;
-        id = hashCode();
+        id = 0;
     }
 
     /** Возвращает имя */
@@ -43,6 +43,10 @@ public class Task {
         this.status = status;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o)
@@ -59,7 +63,7 @@ public class Task {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, description);
+        return Objects.hash(name, description, id, status);
     }
 
     @Override
