@@ -13,11 +13,17 @@ public class TaskManager {
     private final HashMap<Integer, Task> tasks;
     private final HashMap<Integer, Subtask> subtasks;
     private final HashMap<Integer, Epic> epics;
+    private int counter;
 
     public TaskManager() {
         tasks = new HashMap<>();
         subtasks = new HashMap<>();
         epics = new HashMap<>();
+        counter = Integer.MIN_VALUE;
+    }
+
+    private int generateId(){
+        return counter++;
     }
 
     /** Получение списка всех эпиков
@@ -76,12 +82,10 @@ public class TaskManager {
 
     /** Создание эпика */
     public void setEpic(Epic epic) {
-        if (epic.getSubtasksId().isEmpty())
-            epic.setStatus(Status.NEW);
-        else {
-            epicStatusGenerator(epic);
-        }
-        epics.put(epic.hashCode(), epic);
+        epic.setStatus(Status.NEW);
+        epic.setId(generateId());
+
+        epics.put(epic.getId(), epic);
     }
 
     /** Метод обновления эпика */
@@ -91,7 +95,7 @@ public class TaskManager {
         } else
             epic.setStatus(Status.NEW);
 
-        epics.put(epic.hashCode(),epic);
+        epics.put(epic.getId(),epic);
     }
 
     /** Удаление эпика по id*/
@@ -132,6 +136,7 @@ public class TaskManager {
      * @param task - объект, который требуется добавить
      * */
     public void setTask(Task task) {
+        task.setId(generateId());
         tasks.put(task.getId(), task);
     }
 
@@ -176,9 +181,13 @@ public class TaskManager {
         return null;
     }
 
-    /** Добавление/Обновление подзадачи */
+    /** Добавление подзадачи */
     public void setSubtask(Subtask subtask) {
-        subtasks.put(subtask.hashCode(), subtask);
+        subtask.setId(generateId());
+        subtasks.put(subtask.getId(), subtask);
+
+        epics.get(subtask.getEpicId()).setSubtaskId(subtask.getId());
+        updateEpic(epics.get(subtask.getEpicId()));
     }
 
     /** Обновление подзадачи
