@@ -26,10 +26,10 @@ public final class Subtask extends Task {
     @Override
     public String toString() {
         return "Subtask{" +
-                ",name='" + getName() + '\'' +
-                ",description='" + getDescription() + '\'' +
-                ",id='" + getId() + '\'' +
-                ",status='" + getStatus() + '\''+
+                ",name='" + name + '\'' +
+                ",description='" + description + '\'' +
+                ",id='" + id + '\'' +
+                ",status='" + status + '\''+
                 ",epicId='" + epicId + '\'' +
                 '}';
     }
