@@ -12,12 +12,6 @@ public class Epic extends Task {
     }
 
     /** Добавление подзадачи в эпик
-     * @param subtask - сущность подзадачи
-     * */
-    public void setSubtaskId(Subtask subtask){
-        subtasksId.add(subtask.hashCode());
-    }
-    /** Добавление подзадачи в эпик
      * @param id - идентификатор подзадачи */
     public void setSubtaskId(int id){
         subtasksId.add(id);
