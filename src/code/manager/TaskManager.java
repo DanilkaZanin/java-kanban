@@ -22,6 +22,7 @@ public class TaskManager {
         counter = Integer.MIN_VALUE;
     }
 
+    /** Генерация id для задач, эпиков и подзадач */
     private int generateId(){
         return counter++;
     }
@@ -181,6 +182,8 @@ public class TaskManager {
         return null;
     }
 
+    /*Я не понимаю в каком порядке лучше добавлять эпики и сабтаски. Решил что сначала создается пустой эпик.
+     Потом при добавлении подзадачи в эпик вписывается id и вычисляется статус эпика */
     /** Добавление подзадачи */
     public void setSubtask(Subtask subtask) {
         subtask.setId(generateId());

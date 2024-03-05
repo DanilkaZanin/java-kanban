@@ -43,6 +43,8 @@ public class Task {
         this.status = status;
     }
 
+    /** Добавление id
+     * Нежелателен для вызова вне TaskManager */
     public void setId(int id) {
         this.id = id;
     }
