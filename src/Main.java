@@ -13,34 +13,30 @@ public class Main {
         Task t1 = new Task("Задача1", "Описание1", Status.NEW);
         Task t2 = new Task("Задача2", "Описание2", Status.NEW);
 
+        taskManager.setTask(t1);
+        taskManager.setTask(t2);
+
+
         Epic epic1 = new Epic("Эпик1","Описание1");
         Epic epic2 = new Epic("Эпик2","Описание2");
 
-        Subtask subtask1ForEpic1 = new Subtask("Сабтаск1","Описание1", Status.NEW, epic1.hashCode());
-        Subtask subtask2ForEpic1 = new Subtask("Сабтаск2","Описание2", Status.NEW, epic1.hashCode());
 
-        Subtask subtask1ForEpic2 = new Subtask("Сабтаск3","Описание3", Status.NEW, epic2.hashCode());
+        taskManager.setEpic(epic1);
+        taskManager.setEpic(epic2);
 
-        epic1.setSubtaskId(subtask1ForEpic1);
-        epic1.setSubtaskId(subtask2ForEpic1);
+        Subtask subtask1ForEpic1 = new Subtask("Сабтаск1","Описание1", Status.NEW, epic1.getId());
+        Subtask subtask2ForEpic1 = new Subtask("Сабтаск2","Описание2", Status.NEW, epic1.getId());
+        Subtask subtask1ForEpic2 = new Subtask("Сабтаск3","Описание3", Status.DONE, epic2.getId());
 
-        epic2.setSubtaskId(subtask1ForEpic2);
-
-        taskManager.setTask(t1);
-        taskManager.setTask(t2);
 
         taskManager.setSubtask(subtask1ForEpic1);
         taskManager.setSubtask(subtask2ForEpic1);
         taskManager.setSubtask(subtask1ForEpic2);
 
-        taskManager.setEpic(epic1);
-        taskManager.setEpic(epic2);
-
-
-
 
         List<Task> tasks = taskManager.getTasks();
         List<Epic> epics = taskManager.getEpics();
+        List<Subtask> subtasks = taskManager.getSubtasks();
 
         //печать списков
         System.out.println("Задачи");
@@ -49,42 +45,57 @@ public class Main {
         System.out.println("Эпики");
         print(epics);
 
-        //меняю статус
-        Task t3 = new Task("Задача1", "Описание1", Status.IN_PROGRESS);
-        Subtask subtask3 = new Subtask("Сабтаск1","Описание1", Status.DONE, epic1.hashCode());
+        System.out.println("Подзадачи");
+        print(subtasks);
 
-        //обновление задачи
-        taskManager.updateTask(t3);
-        taskManager.updateSubtask(subtask3);
+        //меняю статус
+        t1.setStatus(Status.IN_PROGRESS);
+        t2.setStatus(Status.DONE);
+        subtask1ForEpic1.setStatus(Status.IN_PROGRESS);
+        subtask1ForEpic2.setStatus(Status.IN_PROGRESS);
+
+        //обновление задач
+        taskManager.updateTask(t1);
+        taskManager.updateSubtask(subtask1ForEpic1);
 
         tasks = taskManager.getTasks();
         epics = taskManager.getEpics();
+        subtasks = taskManager.getSubtasks();
 
-        System.out.println("После смены статуса");
+        System.out.println("\nПосле смены статуса");
 
         System.out.println("Задачи");
         print(tasks);
 
         System.out.println("Эпики");
         print(epics);
+
+
+        System.out.println("Подзадачи");
+        print(subtasks);
 
         //Удаление задачи и эпика
         int subtaskSize1 = taskManager.getSubtasks().size();
 
-        taskManager.deleteTask(t2.hashCode());
+        taskManager.deleteTask(t2.getId());
         taskManager.deleteEpic(epic2.getId());
 
         tasks = taskManager.getTasks();
         epics = taskManager.getEpics();
+        subtasks = taskManager.getSubtasks();
         int subtaskSize2 = taskManager.getSubtasks().size();
 
-        System.out.println("После удаления");
+        System.out.println("\nПосле удаления");
 
         System.out.println("Задачи");
         print(tasks);
 
         System.out.println("Эпики");
         print(epics);
+
+        System.out.println("Подзадачи");
+        print(subtasks);
+
         System.out.println("Было :" + subtaskSize1 + " Стало: " + subtaskSize2);
 
     }
