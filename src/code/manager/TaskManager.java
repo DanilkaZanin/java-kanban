@@ -143,7 +143,7 @@ public class TaskManager {
     /** Обновление
      * @param task - объект, который требуется обновить */
     public void updateTask(Task task){
-        tasks.get(task.getId()).setStatus(task.getStatus());
+        tasks.put(task.getId(), task);
     }
 
     /** Удаление по идентификатору
@@ -195,7 +195,7 @@ public class TaskManager {
      * @param subtask - обновленная версия подзадачи
      * */
     public void updateSubtask(Subtask subtask) {
-        subtasks.get(subtask.getId()).setStatus(subtask.getStatus());
+        subtasks.put(subtask.getId(), subtask);
         updateEpic(epics.get(subtask.getEpicId()));
     }
 
@@ -208,6 +208,8 @@ public class TaskManager {
             Epic epic = epics.get(subtask.getEpicId());
 
             epic.getSubtasksId().remove(id);
+            updateEpic(epic);
+
             subtasks.remove(id);
         }
     }
