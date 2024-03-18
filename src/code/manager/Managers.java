@@ -7,10 +7,12 @@ import code.manager.task.TaskManager;
 
 // непонятно зачем нужно
 public final class Managers {
+    /** Возвращает экземпляр класса, который реализует интерфейс TaskManager */
     public static TaskManager getDefault(){
         return new InMemoryTaskManager();
     }
 
+    /** Возвращает экземпляр класса, который реализует интерфейс HistoryManager */
     public static HistoryManager getDefaultHistory() {
         return new InMemoryHistoryManager();
     }
