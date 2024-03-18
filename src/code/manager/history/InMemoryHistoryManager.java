@@ -1,6 +1,5 @@
 package code.manager.history;
 
-import code.manager.history.HistoryManager;
 import code.tasks.Task;
 
 import java.util.ArrayList;
@@ -10,7 +9,6 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     public InMemoryHistoryManager() {
         taskList = new ArrayList<>(10);
-
     }
 
     @Override
