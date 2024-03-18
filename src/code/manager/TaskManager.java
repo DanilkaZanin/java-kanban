@@ -48,4 +48,6 @@ public interface TaskManager {
     void updateSubtask(Subtask subtask);
 
     void deleteSubtask(int id);
+
+    ArrayList<Task> getHistory();
 }
