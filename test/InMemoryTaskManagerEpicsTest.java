@@ -134,4 +134,13 @@ public class InMemoryTaskManagerEpicsTest {
 
         assertNull(taskManager.getSubtask(subtask.getId()));
     }
+
+    @Test
+    public void shouldReturnArrayOfEpicsSubtasks() {
+        ArrayList<Subtask> subtasks = taskManager.getSubtasksFromEpic(epic1);
+        ArrayList<Subtask> subtasks1 = new ArrayList<>(Arrays.asList
+                (subtask1ForEpic1, subtask2ForEpic1));
+
+        assertEquals(subtasks,subtasks1);
+    }
 }
