@@ -1,4 +1,4 @@
-package code.manager;
+package code.manager.history;
 
 import code.tasks.Task;
 

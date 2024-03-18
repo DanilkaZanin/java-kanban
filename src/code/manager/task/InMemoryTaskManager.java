@@ -1,5 +1,7 @@
-package code.manager;
+package code.manager.task;
 
+import code.manager.Managers;
+import code.manager.history.HistoryManager;
 import code.status.Status;
 import code.tasks.Subtask;
 import code.tasks.Task;
@@ -9,7 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class InMemoryTaskManager implements TaskManager{
+public class InMemoryTaskManager implements TaskManager {
     private final HashMap<Integer, Task> tasks;
     private final HashMap<Integer, Subtask> subtasks;
     private final HashMap<Integer, Epic> epics;

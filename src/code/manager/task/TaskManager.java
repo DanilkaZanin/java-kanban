@@ -1,4 +1,4 @@
-package code.manager;
+package code.manager.task;
 
 import code.status.Status;
 import code.tasks.Epic;
