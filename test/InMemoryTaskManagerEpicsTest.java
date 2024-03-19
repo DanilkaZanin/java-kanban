@@ -1,5 +1,5 @@
-import code.manager.InMemoryTaskManager;
-import code.manager.TaskManager;
+import code.manager.task.InMemoryTaskManager;
+import code.manager.task.TaskManager;
 import code.status.Status;
 import code.tasks.Epic;
 import code.tasks.Subtask;
@@ -11,16 +11,6 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-
-/** Что должны делать Эпики и сабтаски.
- * Возвращать список.
- * Возвращать по id.
- * Удалять все задачи.
- * Добавлять задачу.
- * Обновлять задачу. - переделать
- * Удалять задачу. - переделать
- * Получать подзадачи из эпика - Доделать
- * */
 
 public class InMemoryTaskManagerEpicsTest {
     private TaskManager taskManager;
@@ -47,6 +37,20 @@ public class InMemoryTaskManagerEpicsTest {
 
     }
 
+    @Test
+    public void twoEpicsWithSameIdShouldBeEquals() {
+        assertEquals(epic1,taskManager.getEpic(epic1.getId()));
+    }
+
+    @Test
+    public void twoSubtasksWithSameIdShouldBeEquals() {
+        assertEquals(subtask1ForEpic1, taskManager.getSubtask(subtask1ForEpic1.getId()));
+    }
+
+    @Test
+    public void shouldNotSetEpicIdIntoEpic() {
+        assertEquals(epic1.setSubtaskId(epic1.getId()), -1,"В список сабтасков не добавился id эпика");
+    }
     @Test
     public void shouldReturnArrayOfEpics() {
         ArrayList<Epic> epics = taskManager.getEpics();
