@@ -100,6 +100,7 @@ public class InMemoryTaskManager implements TaskManager {
         epics.put(epic.getId(), epic);
     }
 
+    /**Для обновления эпика */
     @Override
     public void updateEpic(Epic epic) {
         if(!epic.getSubtasksId().isEmpty()){
@@ -207,8 +208,6 @@ public class InMemoryTaskManager implements TaskManager {
         return null;
     }
 
-    /*Я не понимаю в каком порядке лучше добавлять эпики и сабтаски. Решил что сначала создается пустой эпик.
-     Потом при добавлении подзадачи в эпик вписывается id и вычисляется статус эпика */
     /** Добавление подзадачи */
     @Override
     public void setSubtask(Subtask subtask) {
