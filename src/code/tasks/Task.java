@@ -18,6 +18,14 @@ public class Task {
         id = 0;
     }
 
+    /** Конструктор копирования */
+    public Task(Task task) {
+        this.name = task.name;
+        this.description = task.description;
+        this.status = task.status;
+        id = task.getId();
+    }
+
     /** Возвращает имя */
     public String getName() {
         return name;
