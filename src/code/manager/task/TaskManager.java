@@ -1,6 +1,5 @@
 package code.manager.task;
 
-import code.status.Status;
 import code.tasks.Epic;
 import code.tasks.Subtask;
 import code.tasks.Task;
@@ -18,9 +17,6 @@ public interface TaskManager {
 
     void setEpic(Epic epic);
 
-    /**
-     * Метод обновления эпика
-     */
     void updateEpic(Epic epic);
 
     void deleteEpic(int id);
