@@ -17,7 +17,7 @@ public class InMemoryHistoryManager implements HistoryManager {
             taskList.remove(0);
         }
 
-        taskList.add(task);
+        taskList.add(new Task(task));
     }
 
     @Override
