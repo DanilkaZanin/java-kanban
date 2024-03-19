@@ -1,5 +1,5 @@
-import code.manager.InMemoryTaskManager;
-import code.manager.TaskManager;
+import code.manager.task.InMemoryTaskManager;
+import code.manager.task.TaskManager;
 import code.status.Status;
 import code.tasks.Task;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,16 +11,6 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-
-/** Что должны делать таски?
- * Возвращать список.
- * Возвращать по id.
- * Удалять все задачи.
- * Получать задачу.
- * Добавлять задачу.
- * Обновлять задачу.
- * Удалять задачу.
- * */
 
 class InMemoryTaskManagerTasksTest {
     private TaskManager taskManager;
@@ -37,7 +27,18 @@ class InMemoryTaskManagerTasksTest {
         taskManager.setTask(t1);
         taskManager.setTask(t2);
     }
+    @Test
+    public void twoTasksWithSameIdShouldBeEquals(){
+        assertEquals(t1,taskManager.getTask(t1.getId()));
+    }
 
+    @Test
+    public void fieldsShouldNotBeChanged() {
+        Task task = new Task("ААА","БББ",Status.NEW);
+        taskManager.setTask(task);
+
+        assertEquals(task, taskManager.getTask(task.getId()), "Поля не изменились!");
+    }
     @Test
     public void shouldReturnArrayOfTasks() {
         ArrayList<Task> tasks = taskManager.getTasks();
