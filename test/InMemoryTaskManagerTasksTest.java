@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -41,8 +42,8 @@ class InMemoryTaskManagerTasksTest {
     }
     @Test
     public void shouldReturnArrayOfTasks() {
-        ArrayList<Task> tasks = taskManager.getTasks();
-        ArrayList<Task> tasks1 = new ArrayList<>(Arrays.asList(t1,t2));
+        List<Task> tasks = taskManager.getTasks();
+        List<Task> tasks1 = new ArrayList<>(Arrays.asList(t1,t2));
 
         assertEquals(tasks, tasks1);
     }
@@ -50,7 +51,7 @@ class InMemoryTaskManagerTasksTest {
     public void shouldClearAllTasks() {
         taskManager.deleteTasks();
 
-        ArrayList<Task> tasks = taskManager.getTasks();
+        List<Task> tasks = taskManager.getTasks();
 
         assertEquals(tasks.size(), 0);
     }
@@ -67,7 +68,7 @@ class InMemoryTaskManagerTasksTest {
         Task task = new Task("AAA", "bbb", Status.IN_PROGRESS);
         taskManager.setTask(task);
 
-        ArrayList<Task> tasks = taskManager.getTasks();
+        List<Task> tasks = taskManager.getTasks();
 
         assertEquals(tasks.size(), 3);
         assertEquals(tasks.get(2), task);

@@ -4,17 +4,17 @@ import code.status.Status;
 import code.tasks.Epic;
 import code.tasks.Subtask;
 import code.tasks.Task;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class InMemoryHistoryManagerTest {
-    private static TaskManager taskManager;
-    @BeforeAll
-    public static void preparing() {
+    private TaskManager taskManager;
+    @BeforeEach
+    public void preparing() {
         taskManager = Managers.getDefault();
 
         Task t1 = new Task("Задача1", "Описание1", Status.NEW);
@@ -102,7 +102,7 @@ public class InMemoryHistoryManagerTest {
         taskManager.getEpic(taskManager.getEpics().get(0).getId());
         taskManager.getSubtask(taskManager.getSubtasks().get(0).getId());
 
-        ArrayList <Task> history = taskManager.getHistory();
+        List<Task> history = taskManager.getHistory();
 
         assertInstanceOf(Task.class, history.get(0), "Содержится тип Task");
         assertInstanceOf(Epic.class, history.get(1), "Содержится тип Epic");

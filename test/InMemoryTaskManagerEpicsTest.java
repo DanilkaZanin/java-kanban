@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -53,16 +54,16 @@ public class InMemoryTaskManagerEpicsTest {
     }
     @Test
     public void shouldReturnArrayOfEpics() {
-        ArrayList<Epic> epics = taskManager.getEpics();
-        ArrayList<Epic> epics1 = new ArrayList<>(Arrays.asList(epic1,epic2));
+        List<Epic> epics = taskManager.getEpics();
+        List<Epic> epics1 = new ArrayList<>(Arrays.asList(epic1,epic2));
 
         assertEquals(epics,epics1);
     }
 
     @Test
     public void shouldReturnArrayOfSubtasks() {
-        ArrayList<Subtask> subtasks = taskManager.getSubtasks();
-        ArrayList<Subtask> subtasks1 = new ArrayList<>(Arrays.asList
+        List<Subtask> subtasks = taskManager.getSubtasks();
+        List<Subtask> subtasks1 = new ArrayList<>(Arrays.asList
                 (subtask1ForEpic1,
                 subtask2ForEpic1));
 
@@ -141,8 +142,8 @@ public class InMemoryTaskManagerEpicsTest {
 
     @Test
     public void shouldReturnArrayOfEpicsSubtasks() {
-        ArrayList<Subtask> subtasks = taskManager.getSubtasksFromEpic(epic1);
-        ArrayList<Subtask> subtasks1 = new ArrayList<>(Arrays.asList
+        List<Subtask> subtasks = taskManager.getSubtasksFromEpic(epic1);
+        List<Subtask> subtasks1 = new ArrayList<>(Arrays.asList
                 (subtask1ForEpic1, subtask2ForEpic1));
 
         assertEquals(subtasks,subtasks1);
