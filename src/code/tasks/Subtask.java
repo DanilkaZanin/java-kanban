@@ -18,6 +18,12 @@ public final class Subtask extends Task {
         this.epicId = epicId;
     }
 
+    /** Для копирования подзадачи */
+    public Subtask(Subtask subtask) {
+        super(subtask);
+        epicId = subtask.epicId;
+    }
+
     /** Возвращает идентификатор эпика, внутри которого находится */
     public int getEpicId(){
         return epicId;

@@ -11,6 +11,12 @@ public class Epic extends Task {
         subtasksId = new ArrayList<>();
     }
 
+    /**Для копирования Эпика */
+    public Epic(Epic epic) {
+        super(epic);
+        subtasksId = epic.subtasksId;
+    }
+
     /** Добавление подзадачи в эпик
      * @param id - идентификатор подзадачи */
     public int setSubtaskId(int id){

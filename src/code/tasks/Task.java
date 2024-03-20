@@ -26,6 +26,7 @@ public class Task {
         id = task.getId();
     }
 
+
     /** Возвращает имя */
     public String getName() {
         return name;
